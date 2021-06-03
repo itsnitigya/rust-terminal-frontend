@@ -5,7 +5,7 @@ import { HomeOutlined, PieChartFilled } from "@ant-design/icons";
 import Home from "./routes/Home";
 import CodeEditor from "./routes/CodeEditor";
 import "./App.css";
-import {SocketContext, socket} from "./routes/socket";
+import {SocketContext, socket} from "./services/socket";
 
 
 const { Sider } = Layout;
@@ -42,8 +42,7 @@ class App extends React.Component {
             <Route path="/">
             <SocketContext.Provider value={socket}>
                  <Home />
-              </SocketContext.Provider>
-              {/* <Home /> */}
+            </SocketContext.Provider>
             </Route>
           </Switch>
         </Layout>

@@ -1,17 +1,10 @@
 
 import React from 'react'
 import { Layout, Breadcrumb } from 'antd';
-
-
-// import {TerminalUI} from "./TerminalUI";
 import { XTerm } from 'xterm-for-react';
-import {SocketContext} from "./socket";
+import {SocketContext} from "../services/socket";
 
-// import socket from "./socket"
-// import { AttachAddon } from 'xterm-addon-attach';
 const { Header, Content } = Layout;
-// socket to server
-
 
 const Terminal = () => {
   const xtermRef = React.useRef(null)
@@ -38,24 +31,27 @@ const Terminal = () => {
       return;
      }
      else {
-      socket.emit("input", input);
+      socket.emit("input", input + ";echo command executed");
 
       // data from server
       socket.once('output', (data) => {
        if (xtermRef.current != null){
          xtermRef.current.terminal.write("\n");
+         xtermRef.current.terminal.write('\x1b[32m');
          xtermRef.current.terminal.writeln(data.trim());
+         xtermRef.current.terminal.write('\x1b[37m');
          xtermRef.current.terminal.write(" $ ");
          setInput('');
        }
-
-     });
+      });
      }
     } else if (code < 32 || code === 126) {
       // Disable control Keys such as arrow keys
       return;
     } else if (code === 127) {
       // figure out logic for backspace
+      xtermRef.current.terminal.write('\x1b[2K\r') 
+      xtermRef.current.terminal.write(" $ ");
       return;
     }
     else {
@@ -66,7 +62,8 @@ const Terminal = () => {
   };
 
   return (
-      <XTerm ref={xtermRef}  options={{ lineHeight: 1 , theme: { background: "#202B33"  ,foreground: "#F5F8FA", }}}  onData={onData}/>
+      <XTerm ref={xtermRef}  options={{ lineHeight: 1 , theme: { background: "#202B33"  ,foreground: "#F5F8FA"}}}  
+      onData={onData}/>
   )
 }
 

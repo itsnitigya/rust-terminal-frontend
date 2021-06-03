@@ -3,8 +3,8 @@ import io from "socket.io-client";
 // import { SOCKET_URL } from "config";
 
 const socket = io("http://localhost:8080");
-var heartbeatInterval;
-var heartbeatCount = 0;
+let heartbeatInterval;
+let heartbeatCount = 0;
 
 socket.on('connect', function connectFn(data) {
     console.log('connected');
