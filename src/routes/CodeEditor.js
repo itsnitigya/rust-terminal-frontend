@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from "react";
 import Prism from "prismjs";
-import { Layout, Breadcrumb, Button } from 'antd';
+import { Layout, Breadcrumb, Button, Alert } from 'antd';
+import {SocketContext} from "../services/socket";
 
 import "./styles.css";
 
@@ -10,6 +11,10 @@ const { Header, Content } = Layout;
 const CodeEditor = props => {
     const [content, setContent] = useState(props.content);
     const [code, setCode] = useState(null);
+    const [output, setOutput] = useState("Output");
+    const [success, setSuccess] = useState("");
+    const [type, setType] = useState("info");
+    const socket = React.useContext(SocketContext);
   
     const handleKeyDown = evt => {
       let value = content,
@@ -35,9 +40,19 @@ const CodeEditor = props => {
       Prism.highlightAll();
     }, [props.language, content]);
 
-    const handleOnClick = () => {
+    const handleSaveClick = () => {
         console.log(content);
         setCode(content);
+    }
+
+    const handleRunClick = () => {
+        socket.emit("input-code", code);
+
+        socket.once('output-code', (data) => {
+            setOutput(data);
+            setSuccess("Success");
+            setType("success");
+        });
     }
   
     return (
@@ -48,9 +63,9 @@ const CodeEditor = props => {
             <Breadcrumb.Item>Editor</Breadcrumb.Item>
             <Breadcrumb.Item>Rust</Breadcrumb.Item>
           </Breadcrumb>
-          <Button type="primary" style={{ margin: '16px 0' }} onClick={handleOnClick}>Save Code</Button>
-          <Button type="primary" style={{ margin: '16px 16px' }}>Run Code</Button>
-          <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+          <Button type="primary" style={{ margin: '16px 0' }} onClick={handleSaveClick}>Save Code</Button>
+          <Button type="primary" style={{ margin: '16px 16px' }} onClick={handleRunClick}>Run Code</Button>
+          <div className="site-layout-background" style={{ padding: 24, minHeight: 200 }}>
             <div className="code-edit-container">
         <textarea
           className="code-input"
@@ -63,7 +78,13 @@ const CodeEditor = props => {
         </pre>
       </div>
           </div>
-          {/* <Button type="primary">Primary Button</Button> */}
+          <Alert
+            style={{ margin: '16px 16px' }}
+            message={success}
+            description={output}
+            type={type}
+            showIcon
+           />
         </Content>
       </Layout>
       
