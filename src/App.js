@@ -37,7 +37,9 @@ class App extends React.Component {
           </Sider>
           <Switch>
             <Route path="/code-editor">
-              <CodeEditor />
+            <SocketContext.Provider value={socket}>
+                <CodeEditor language="Rust" />
+            </SocketContext.Provider>
             </Route>
             <Route path="/">
             <SocketContext.Provider value={socket}>
