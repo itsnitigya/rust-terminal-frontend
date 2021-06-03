@@ -31,7 +31,7 @@ const Terminal = () => {
       return;
      }
      else {
-      socket.emit("input", input + ";echo command executed");
+      socket.emit("input", input + ';echo executed!');
 
       // data from server
       socket.once('output', (data) => {
@@ -49,13 +49,13 @@ const Terminal = () => {
       // Disable control Keys such as arrow keys
       return;
     } else if (code === 127) {
-      // figure out logic for backspace
+      // backspace
       xtermRef.current.terminal.write('\x1b[2K\r') 
       xtermRef.current.terminal.write(" $ ");
       return;
     }
     else {
-      // Add general key press characters to the terminal
+      // add data in buffer
       xtermRef.current.terminal.write(data);
       setInput((prev) => prev + data);
     }
