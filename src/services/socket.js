@@ -1,7 +1,7 @@
 import React from "react";
 import io from "socket.io-client";
 
-const socket = io("https://143.110.190.130");
+const socket = io("https://codedamn.nitigyakapoor.in");
 
 let heartbeatInterval;
 let heartbeatCount = 0;
