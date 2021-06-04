@@ -10,4 +10,5 @@
 <img width="1440" alt="Screenshot 2021-06-04 at 4 11 45 AM" src="https://user-images.githubusercontent.com/40539705/120721316-34f8a080-c4eb-11eb-93df-70f76dd14c55.png">
 
 ## Error execution
-<img width="1440" alt="Screenshot 2021-06-04 at 4 11 45 AM" src="https://user-images.githubusercontent.com/40539705/120721316-34f8a080-c4eb-11eb-93df-70f76dd14c55.png">
+<img width="1440" alt="Screenshot 2021-06-04 at 5 01 49 PM" src="https://user-images.githubusercontent.com/40539705/120795543-3e1f5700-c557-11eb-80f1-41ce41f7d5a2.png">
+n
