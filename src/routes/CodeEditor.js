@@ -50,8 +50,13 @@ const CodeEditor = props => {
 
         socket.once('output-code', (data) => {
             setOutput(data);
-            setSuccess("Success");
-            setType("success");
+            if(data.includes("error")) {
+                setSuccess("Error");
+                setType("error");
+            } else {
+                setSuccess("Success");
+                setType("success");
+            }
         });
     }
   
@@ -74,7 +79,9 @@ const CodeEditor = props => {
           onKeyDown={handleKeyDown}
         />
         <pre className="code-output">
-          <code className={`language-${props.language}`}>{content}</code>
+          <code className={`language-${props.language}`}>
+              {content}
+           </code>
         </pre>
       </div>
           </div>
