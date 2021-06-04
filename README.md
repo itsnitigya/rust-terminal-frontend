@@ -4,7 +4,7 @@
 
 ``` bash
 git clone https://github.com/itsnitigya/rust-terminal-frontend
-cd rust-terminal-front-end/src
+cd rust-terminal-frontend/src
 yarn
 yarn start 
 ```
