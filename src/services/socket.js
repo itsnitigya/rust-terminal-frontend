@@ -1,8 +1,8 @@
 import React from "react";
 import io from "socket.io-client";
-// import { SOCKET_URL } from "config";
 
-const socket = io("http://localhost:8080");
+const socket = io("http://143.110.190.130");
+
 let heartbeatInterval;
 let heartbeatCount = 0;
 
@@ -26,6 +26,7 @@ socket.on('disconnect', function disconnectFn(data) {
     console.log('disconnected');
     clearInterval(heartbeatInterval);
 });
+
 const SocketContext = React.createContext(socket);
 
 // eslint-disable-next-line import/no-anonymous-default-export
